@@ -1,0 +1,24 @@
+require 'pathname'
+
+module Abulafia
+  class Repo
+    @dir = ''
+
+    def initialize(dir)
+      @dir = dir
+    end
+
+    def list
+      prefix = Pathname.new(@dir)
+      files = Dir.glob("#{@dir}/**/*").collect do |p|
+        name = Pathname.new(p).relative_path_from(prefix).to_s
+        name.gsub(/\.md$/, '')
+      end
+      files.sort.reverse
+    end
+
+    def full_path(name)
+      "#{@dir}/#{name}.md"
+    end
+  end
+end

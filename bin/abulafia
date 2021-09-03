@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby -w
+
+$:.unshift('lib')
+$stdout.sync = true
+
+NOTE_DIR_KEY = 'ABULAFIA_DIR'
+EDITOR_KEY = 'EDITOR'
+
+repo_dir = File.expand_path("~/Notes")
+repo_dir = ENV[NOTE_DIR_KEY] if ENV.has_key?(NOTE_DIR_KEY)
+
+editor = "vi"
+editor = ENV[EDITOR_KEY] if ENV.has_key?(EDITOR_KEY)
+
+begin
+  require 'abulafia'
+
+  repo = Abulafia::Repo.new(repo_dir)
+
+  cfg = Abulafia::Config.new
+  cfg.repo = repo
+  cfg.editor = editor
+
+  cmd_name = ARGV.shift
+  cmd_name = 'help' if cmd_name.nil? || cmd_name.empty?
+
+  cmd = Abulafia::Commands.get(cmd_name)
+
+  cmd.handle(cfg, ARGV)
+rescue Abulafia::DuplicateCommandName => e
+  puts "Duplicate command name: #{e.name}"
+end
