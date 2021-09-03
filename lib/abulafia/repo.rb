@@ -5,8 +5,6 @@ require 'pathname'
 module Abulafia
   # The note repository. Provides access to the notes.
   class Repo
-    @dir = ''
-
     def initialize(dir)
       @dir = dir
     end
