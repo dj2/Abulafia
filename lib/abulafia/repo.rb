@@ -18,6 +18,10 @@ module Abulafia
       files.sort.reverse
     end
 
+    def exists?(name)
+      File.exist?(full_path(name))
+    end
+
     def full_path(name)
       "#{@dir}/#{name}.md"
     end

@@ -2,4 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rubocop', require: false
+group :development do
+  gem 'rubocop'
+  gem 'minitest'
+end

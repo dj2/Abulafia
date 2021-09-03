@@ -7,10 +7,10 @@ module Abulafia
       def self.handle(cfg, args)
         raise Abulafia::MissingFile if args.empty?
 
-        path = cfg.repo.full_path(args[0])
-        raise Abulafia::NoteDoesNotExist, args[0] unless File.exist?(path)
+        name = args[0]
+        raise Abulafia::NoteDoesNotExist, name unless cfg.repo.exist?(name)
 
-        cfg.editor.open(path)
+        cfg.editor.open(cfg.repo.full_path(name))
       end
 
       def self.command_names
