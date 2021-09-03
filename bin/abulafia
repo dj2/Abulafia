@@ -1,16 +1,17 @@
 #!/usr/bin/env ruby -w
+# frozen_string_literal: true
 
-$:.unshift('lib')
+$LOAD_PATH.unshift('lib')
 $stdout.sync = true
 
 NOTE_DIR_KEY = 'ABULAFIA_DIR'
 EDITOR_KEY = 'EDITOR'
 
-repo_dir = File.expand_path("~/Notes")
-repo_dir = ENV[NOTE_DIR_KEY] if ENV.has_key?(NOTE_DIR_KEY)
+repo_dir = File.expand_path('~/Notes')
+repo_dir = ENV[NOTE_DIR_KEY] if ENV.key?(NOTE_DIR_KEY)
 
-editor = "vi"
-editor = ENV[EDITOR_KEY] if ENV.has_key?(EDITOR_KEY)
+editor = 'vi'
+editor = ENV[EDITOR_KEY] if ENV.key?(EDITOR_KEY)
 
 begin
   require 'abulafia'

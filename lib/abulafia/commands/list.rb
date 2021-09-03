@@ -1,19 +1,22 @@
+# frozen_string_literal: true
+
 module Abulafia
   module Command
+    # The list command. Lists notes.
     class List
-      def self.handle(cfg, args)
+      def self.handle(cfg, _args)
         cfg.repo.list.each { |f| puts f }
       end
 
       def self.command_names
-        ['list', 'ls', 'l']
+        %w[list ls l]
       end
 
       def self.description
-        "list notes"
+        'list notes'
       end
 
-      def self.has_options?
+      def self.options?
         false
       end
 
@@ -21,4 +24,3 @@ module Abulafia
     end
   end
 end
-

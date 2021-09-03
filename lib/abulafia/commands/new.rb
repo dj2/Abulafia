@@ -1,33 +1,36 @@
+# frozen_string_literal: true
+
 require 'date'
 module Abulafia
   module Command
+    # The new command. Creates a new note of the given name.
     class New
       def self.handle(cfg, args)
         raise Abulafia::MissingFile if args.empty?
 
-        path = cfg.repo.full_path("#{self.datetime_stamp}-#{self.to_slug(args[0])}")
+        path = cfg.repo.full_path("#{datetime_stamp}-#{to_slug(args[0])}")
 
         exec("#{cfg.editor} \"#{path}\"")
       end
 
       def self.command_names
-        ['new', 'n']
+        %w[new n]
       end
 
       def self.description
-        "new note"
+        'new note'
       end
 
-      def self.has_options?
+      def self.options?
         true
       end
 
       def self.options
-        "[Note name]"
+        '[Note name]'
       end
 
       def self.datetime_stamp
-        DateTime.now.strftime("%Y%m%d%H%M")
+        DateTime.now.strftime('%Y%m%d%H%M')
       end
 
       def self.to_slug(name)
@@ -38,4 +41,3 @@ module Abulafia
     end
   end
 end
-

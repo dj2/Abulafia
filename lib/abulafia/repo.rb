@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require 'pathname'
 
 module Abulafia
+  # The note repository. Provides access to the notes.
   class Repo
     @dir = ''
 
