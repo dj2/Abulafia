@@ -2,22 +2,27 @@ module Abulafia
   module Command
     class Help
       def self.handle(cfg, args)
-        cmds = Abulafia::Commands.commands
+        cmds = Abulafia::Commands.handlers
 
         puts "abulafia [COMMAND] [OPTIONS] [ARGS]\n\n"
         puts "COMMANDS"
-        keys = cmds.keys.sort
+        keys = cmds.collect { |c|
+          names = Array.new(c.send(:command_names))
+          {
+            names: names,
+            cmd: c
+          }
+        }.sort { |a, b| a[:names].first <=> b[:names].first }
 
-        longest = 0
         keys.each do |k|
-          longest = k.length if k.length > longest
+          print "  #{k[:names].join(', ')}"
+          print " #{k[:cmd].options}" if k[:cmd].has_options?
+          print " -- #{k[:cmd].description}\n"
         end
-        longest += 3
+      end
 
-        keys.each do |k|
-          puts "  #{k}#{" " * (longest - k.length)}-- #{cmds[k].description}"
-          puts cmds[k].options if cmds[k].has_options?
-        end
+      def self.command_names
+        ['help', 'h']
       end
 
       def self.description
@@ -28,7 +33,7 @@ module Abulafia
         false
       end
 
-      Abulafia::Commands.register('help', Abulafia::Command::Help)
+      Abulafia::Commands.register(Abulafia::Command::Help)
     end
   end
 end

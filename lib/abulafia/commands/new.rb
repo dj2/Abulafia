@@ -10,6 +10,10 @@ module Abulafia
         exec("#{cfg.editor} \"#{path}\"")
       end
 
+      def self.command_names
+        ['new', 'n']
+      end
+
       def self.description
         "new note"
       end
@@ -19,7 +23,7 @@ module Abulafia
       end
 
       def self.options
-        puts "   [Note name]"
+        "[Note name]"
       end
 
       def self.datetime_stamp
@@ -30,7 +34,7 @@ module Abulafia
         name.gsub(/[^a-zA-Z0-9\-]/, '-')
       end
 
-      Abulafia::Commands.register('new', Abulafia::Command::New)
+      Abulafia::Commands.register(Abulafia::Command::New)
     end
   end
 end

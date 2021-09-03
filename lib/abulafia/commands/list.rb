@@ -5,6 +5,10 @@ module Abulafia
         cfg.repo.list.each { |f| puts f }
       end
 
+      def self.command_names
+        ['list', 'ls', 'l']
+      end
+
       def self.description
         "list notes"
       end
@@ -13,7 +17,7 @@ module Abulafia
         false
       end
 
-      Abulafia::Commands.register('list', Abulafia::Command::List)
+      Abulafia::Commands.register(Abulafia::Command::List)
     end
   end
 end

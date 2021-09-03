@@ -10,6 +10,10 @@ module Abulafia
         exec("#{cfg.editor} \"#{path}\"")
       end
 
+      def self.command_names
+        ['edit', 'e']
+      end
+
       def self.description
         "edit note"
       end
@@ -19,10 +23,10 @@ module Abulafia
       end
 
       def self.options
-        puts "   [Note name]"
+        "[Note name]"
       end
 
-      Abulafia::Commands.register('edit', Abulafia::Command::Edit)
+      Abulafia::Commands.register(Abulafia::Command::Edit)
     end
   end
 end

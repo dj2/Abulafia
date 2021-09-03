@@ -3,14 +3,19 @@ require_relative 'errors'
 module Abulafia
   class Commands
     @@commands = {}
+    @@handlers = []
 
-    def self.register(name, cmd)
-      raise Abulafia::DuplicateCommandName.new(name) if @@commands.has_key?(name)
-      @@commands[name] = cmd
+    def self.register(cmd)
+      names = Array.new(cmd.send(:command_names))
+      names.each do |n|
+        raise Abulafia::DuplicateCommandName.new(n) if @@commands.has_key?(n)
+        @@commands[n] = cmd
+      end
+      @@handlers << cmd
     end
 
-    def self.commands
-      @@commands
+    def self.handlers
+      @@handlers
     end
 
     def self.get(name)
