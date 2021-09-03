@@ -1,0 +1,36 @@
+module Abulafia
+  module Command
+    class Show
+      def self.handle(cfg, args)
+        raise Abulafia::MissingFile if args.empty?
+
+        path = cfg.repo.full_path(args[0])
+        raise Abulafia::NoteDoesNotExist.new(args[0]) unless File.exist?(path)
+
+        File.open(path, 'r') do |f|
+          puts f.read
+        end
+      end
+
+      def self.command_names
+        ['show', 'cat', 's']
+      end
+
+      def self.description
+        "show note"
+      end
+
+      def self.has_options?
+        true
+      end
+
+      def self.options
+        "[Note name]"
+      end
+
+      Abulafia::Commands.register(Abulafia::Command::Show)
+    end
+  end
+end
+
+
