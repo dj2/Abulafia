@@ -28,6 +28,6 @@ begin
   cmd = Abulafia::Commands.get(cmd_name)
 
   cmd.handle(cfg, ARGV)
-rescue Abulafia::DuplicateCommandName => e
-  puts "Duplicate command name: #{e.name}"
+rescue RuntimeError => e
+  puts e.message
 end
