@@ -4,34 +4,32 @@ require 'abulafia'
 require 'minitest/autorun'
 
 module Abulafia
-module Test
+  module Test
+    class RepoMock
+      def initialize(files, prefix = '')
+        @files = files
+        @prefix = prefix
+      end
 
-class RepoMock
-  def initialize(files, prefix = '')
-    @files = files
-    @prefix = prefix
+      def exist?(name)
+        @files.include?(name)
+      end
+
+      def full_path(name)
+        "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}"
+      end
+    end
+
+    class EditorMock
+      attr_reader :opened_files
+
+      def initialize
+        @opened_files = []
+      end
+
+      def open(name)
+        @opened_files << name
+      end
+    end
   end
-
-  def exist?(name)
-    @files.include?(name)
-  end
-
-  def full_path(name)
-    "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}"
-  end
-end
-
-class EditorMock
-  attr_reader :opened_files
-
-  def initialize
-    @opened_files = []
-  end
-
-  def open(name)
-    @opened_files << name
-  end
-end
-
-end
 end
