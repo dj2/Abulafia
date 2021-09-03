@@ -10,13 +10,14 @@ EDITOR_KEY = 'EDITOR'
 repo_dir = File.expand_path('~/Notes')
 repo_dir = ENV[NOTE_DIR_KEY] if ENV.key?(NOTE_DIR_KEY)
 
-editor = 'vi'
-editor = ENV[EDITOR_KEY] if ENV.key?(EDITOR_KEY)
+editor_cmd = 'vi'
+editor_cmd = ENV[EDITOR_KEY] if ENV.key?(EDITOR_KEY)
 
 begin
   require 'abulafia'
 
   repo = Abulafia::Repo.new(repo_dir)
+  editor = Abulafia::Editor.new(editor_cmd)
 
   cfg = Abulafia::Config.new
   cfg.repo = repo

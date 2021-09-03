@@ -10,7 +10,7 @@ module Abulafia
         path = cfg.repo.full_path(args[0])
         raise Abulafia::NoteDoesNotExist, args[0] unless File.exist?(path)
 
-        exec("#{cfg.editor} \"#{path}\"")
+        cfg.editor.open(path)
       end
 
       def self.command_names

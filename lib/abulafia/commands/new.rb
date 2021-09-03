@@ -10,7 +10,7 @@ module Abulafia
 
         path = cfg.repo.full_path("#{datetime_stamp}-#{to_slug(args[0])}")
 
-        exec("#{cfg.editor} \"#{path}\"")
+        cfg.editor.open(path)
       end
 
       def self.command_names
