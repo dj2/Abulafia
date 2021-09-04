@@ -18,6 +18,10 @@ module Abulafia
       files.sort.reverse
     end
 
+    def open(name, mode, &block)
+      File.open(full_path(name), mode, &block)
+    end
+
     def read(name)
       File.open(full_path(name)).read
     end

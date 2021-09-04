@@ -2,6 +2,7 @@
 
 require 'abulafia'
 require 'minitest/autorun'
+require 'stringio'
 
 module Abulafia
   module Test
@@ -12,15 +13,19 @@ module Abulafia
       end
 
       def add(name, content)
-        @files[name] = content
+        @files[name] = StringIO.new(String.new(content), 'a+')
       end
 
       def list
         @files.keys.sort
       end
 
+      def open(name, _mode)
+        yield @files[name]
+      end
+
       def read(name)
-        @files[name]
+        @files[name].string
       end
 
       def exist?(name)
