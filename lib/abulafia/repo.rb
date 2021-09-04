@@ -18,7 +18,11 @@ module Abulafia
       files.sort.reverse
     end
 
-    def exists?(name)
+    def read(name)
+      File.open(full_path(name)).read
+    end
+
+    def exist?(name)
       File.exist?(full_path(name))
     end
 

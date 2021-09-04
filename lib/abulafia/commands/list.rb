@@ -5,7 +5,7 @@ module Abulafia
     # The list command. Lists notes.
     class List
       def self.handle(cfg, _args)
-        cfg.repo.list.each { |f| puts f }
+        cfg.repo.list.each { |f| cfg.term.puts f }
       end
 
       def self.command_names

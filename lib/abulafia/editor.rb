@@ -8,7 +8,7 @@ module Abulafia
     end
 
     def open(path)
-      exec("#{cmd} \"#{path}\"")
+      exec("#{@cmd} \"#{path}\"")
     end
   end
 end

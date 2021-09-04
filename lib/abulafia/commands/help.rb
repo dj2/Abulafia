@@ -5,12 +5,12 @@ module Abulafia
     # The help command. Prints help information.
     class Help
       def self.handle(_cfg, _args)
-        puts "abulafia [COMMAND] [OPTIONS] [ARGS]\n\n"
-        puts 'COMMANDS'
+        cfg.term.puts "abulafia [COMMAND] [OPTIONS] [ARGS]\n\n"
+        cfg.term.puts 'COMMANDS'
         build_command_info.each do |k|
-          print "  #{k[:names].join(', ')}"
-          print " #{k[:cmd].options}" if k[:cmd].options?
-          print " -- #{k[:cmd].description}\n"
+          cfg.term.print "  #{k[:names].join(', ')}"
+          cfg.term.print " #{k[:cmd].options}" if k[:cmd].options?
+          cfg.term.print " -- #{k[:cmd].description}\n"
         end
       end
 

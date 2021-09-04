@@ -4,31 +4,32 @@ require 'test_helper'
 
 module Abulafia
   module Command
-    class EditTest < Minitest::Test
+    class ShowTest < Minitest::Test
       def setup
         @cfg = Abulafia::Config.new
-        @cfg.editor = Test::EditorMock.new
         @cfg.term = Test::TermMock.new
         @cfg.repo = Test::RepoMock.new('path')
       end
 
-      def test_it_opens_a_note
-        @cfg.repo.add('known_name', '')
+      def test_it_displays_a_note
+        content = 'this is known content'
+        @cfg.repo.add('known_name', content)
 
-        Abulafia::Command::Edit.handle(@cfg, ['known_name'])
-        assert @cfg.editor.opened_files.include?('path/known_name.md')
+        Abulafia::Command::Show.handle(@cfg, ['known_name'])
+        assert !@cfg.term.output.empty?
+        assert_equal @cfg.term.output, "#{content}\n"
       end
 
       def test_it_handles_missing_note_name
         err = assert_raises Abulafia::MissingFile do
-          Abulafia::Command::Edit.handle(@cfg, [])
+          Abulafia::Command::Show.handle(@cfg, [])
         end
         assert_match /name required/, err.message
       end
 
       def test_it_handles_unknown_note_name
         err = assert_raises Abulafia::NoteDoesNotExist do
-          Abulafia::Command::Edit.handle(@cfg, ['unknown_name'])
+          Abulafia::Command::Show.handle(@cfg, ['unknown_name'])
         end
         assert_match /unable to find/, err.message
       end

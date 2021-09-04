@@ -2,6 +2,11 @@
 
 module Abulafia
   class Config
-    attr_accessor :repo, :editor
+    attr_accessor :repo, :editor, :term, :time
+
+    def initialize
+      @term = STDOUT
+      @time = Abulafia::Time.new
+    end
   end
 end

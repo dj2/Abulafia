@@ -6,17 +6,29 @@ require 'minitest/autorun'
 module Abulafia
   module Test
     class RepoMock
-      def initialize(files, prefix = '')
-        @files = files
+      def initialize(prefix = '')
+        @files = {}
         @prefix = prefix
       end
 
+      def add(name, content)
+        @files[name] = content
+      end
+
+      def list
+        @files.keys.sort
+      end
+
+      def read(name)
+        @files[name]
+      end
+
       def exist?(name)
-        @files.include?(name)
+        @files.key?(name)
       end
 
       def full_path(name)
-        "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}"
+        "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}.md"
       end
     end
 
@@ -29,6 +41,34 @@ module Abulafia
 
       def open(name)
         @opened_files << name
+      end
+    end
+
+    class TermMock
+      def initialize
+        @str = StringIO.new
+      end
+
+      def output
+        @str.string
+      end
+
+      def puts(content)
+        @str.puts(content)
+      end
+
+      def print(content)
+        @str.print(content)
+      end
+    end
+
+    class TimeMock
+      def initialize(time)
+        @time = time
+      end
+
+      def stamp
+        @time.strftime(Abulafia::Time::STAMP_FORMAT)
       end
     end
   end
