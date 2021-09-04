@@ -16,7 +16,7 @@ module Abulafia
       end
 
       def self.command_names
-        %w[show s]
+        %w[show]
       end
 
       def self.description

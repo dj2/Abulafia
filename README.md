@@ -33,3 +33,12 @@ ABULAFIA_DIR=~/Notes
 ./bin/abulafia edit <note>
 ```
 
+### Append to note
+```
+./bin/abulafia append <note> <content>
+```
+
+### Search notes
+```
+./bin/abulafia search <content>
+```
