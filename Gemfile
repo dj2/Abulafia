@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'tty-markdown'
+
 group :development do
   gem 'minitest'
   gem 'rake'
