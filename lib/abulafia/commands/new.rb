@@ -28,8 +28,8 @@ module Abulafia
       end
 
       def self.to_slug(name)
-        name.gsub(/[^a-zA-Z0-9\-\_]/, '-').
-             gsub(/-+/, '-')
+        name.gsub(/[^a-zA-Z0-9\-_]/, '-')
+            .gsub(/-+/, '-')
       end
 
       Abulafia::Commands.register(Abulafia::Command::New)
