@@ -10,7 +10,7 @@ module Abulafia
         name = args.join
         path = to_slug(name)
         cfg.repo.open(path, 'w') do |f|
-          f.puts "# #{name}\n\n\n"
+          f.puts "# #{name}\n@inbox\n\n"
           f.puts "created_at { #{cfg.time.stamp} }"
         end
         cfg.editor.open(cfg.repo.full_path(path))
