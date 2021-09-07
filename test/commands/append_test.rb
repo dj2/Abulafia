@@ -13,11 +13,11 @@ module Abulafia
 
       def test_it_displays_a_note
         content = "this is known content\n"
-        @cfg.repo.add('known_name', content)
+        @cfg.repo.add('known_name.md', content)
 
-        Abulafia::Command::Append.handle(@cfg, %w[known_name with extra content])
+        Abulafia::Command::Append.handle(@cfg, %w[known_name.md with extra content])
         assert_equal "#{content}with extra content\n",
-                     @cfg.repo.read('known_name')
+                     @cfg.repo.read('known_name.md')
       end
 
       def test_it_handles_missing_note_name
@@ -25,13 +25,6 @@ module Abulafia
           Abulafia::Command::Append.handle(@cfg, [])
         end
         assert_match /name required/, err.message
-      end
-
-      def test_it_handles_unknown_note_name
-        err = assert_raises Abulafia::NoteDoesNotExist do
-          Abulafia::Command::Append.handle(@cfg, ['unknown_name'])
-        end
-        assert_match /unable to find/, err.message
       end
     end
   end

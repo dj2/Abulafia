@@ -8,8 +8,6 @@ module Abulafia
         raise Abulafia::MissingFile if args.empty?
 
         path = args.shift
-        raise Abulafia::NoteDoesNotExist, args[0] unless cfg.repo.exist?(path)
-
         content = args.join(' ')
         return if content.empty?
 

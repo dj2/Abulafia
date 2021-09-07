@@ -13,7 +13,7 @@ module Abulafia
       end
 
       def add(name, content)
-        @files[name] = StringIO.new(String.new(content), 'a+')
+        @files[name] = io(content, 'a+')
       end
 
       def list
@@ -21,6 +21,7 @@ module Abulafia
       end
 
       def open(name, _mode)
+        @files[name] = io('', 'w') unless @files.key?(name)
         yield @files[name]
       end
 
@@ -33,7 +34,11 @@ module Abulafia
       end
 
       def full_path(name)
-        "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}.md"
+        "#{@prefix.empty? ? '' : "#{@prefix}/"}#{name}"
+      end
+
+      def io(content, mode)
+        StringIO.new(String.new(content), mode)
       end
     end
 

@@ -13,9 +13,9 @@ module Abulafia
       end
 
       def test_it_opens_a_note
-        @cfg.repo.add('known_name', '')
+        @cfg.repo.add('known_name.md', '')
 
-        Abulafia::Command::Edit.handle(@cfg, ['known_name'])
+        Abulafia::Command::Edit.handle(@cfg, ['known_name.md'])
         assert @cfg.editor.opened_files.include?('path/known_name.md')
       end
 

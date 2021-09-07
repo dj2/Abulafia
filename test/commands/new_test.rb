@@ -14,10 +14,25 @@ module Abulafia
       end
 
       def test_it_creates_a_note
-        @cfg.repo.add('known_name', '')
+        Abulafia::Command::New.handle(@cfg, ['known_name.md'])
+        assert @cfg.editor.opened_files.include?('path/known_name.md')
+      end
 
+      def test_it_defaults_to_md
         Abulafia::Command::New.handle(@cfg, ['known_name'])
-        assert @cfg.editor.opened_files.include?('path/202102131425-known_name.md')
+        assert @cfg.editor.opened_files.include?('path/known_name.md')
+      end
+
+      def test_it_allows_other_extensions
+        Abulafia::Command::New.handle(@cfg, ['known_name.bibtex'])
+        assert @cfg.editor.opened_files.include?('path/known_name.bibtex')
+      end
+
+      def test_it_creates_default
+        Abulafia::Command::New.handle(@cfg, ['known_name.md'])
+        assert @cfg.repo.read('known_name.md'),
+               "# known_name\n\n\ncreated_at{ 2021-02-13 1425 }"
+        assert @cfg.editor.opened_files.include?('path/known_name.md')
       end
 
       def test_it_handles_missing_note_name

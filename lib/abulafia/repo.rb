@@ -41,7 +41,7 @@ module Abulafia
 
     def search(content)
       res = `grep #{GREP_FLAGS} #{content} #{@dir}`
-      return if res.nil? || res.empty?
+      return [] if res.nil? || res.empty?
 
       res.split(/\n/).collect do |l|
         parts = l.split(/:/)
@@ -53,13 +53,12 @@ module Abulafia
     end
 
     def full_path(name)
-      "#{@dir}/#{name}.md"
+      "#{@dir}/#{name}"
     end
 
     def cleanup_pathname(name)
       prefix = Pathname.new(@dir)
-      filename = Pathname.new(name).relative_path_from(prefix).to_s
-      filename.gsub(/\.md$/, '')
+      Pathname.new(name).relative_path_from(prefix).to_s
     end
   end
 end
