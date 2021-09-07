@@ -7,11 +7,11 @@ module Abulafia
       def self.handle(cfg, args)
         raise Abulafia::MissingFile if args.empty?
 
-        name = args.join
+        name = args.join(' ')
         path = to_slug(name)
         cfg.repo.open(path, 'w') do |f|
           f.puts "# #{name}\n@inbox\n\n"
-          f.puts "created_at { #{cfg.time.stamp} }"
+          f.puts "created_at { #{cfg.time.stamp} }\n\n"
         end
         cfg.editor.open(cfg.repo.full_path(path))
       end
