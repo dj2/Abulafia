@@ -24,7 +24,7 @@ module Abulafia
     end
 
     def list
-      Dir.glob("#{@dir}/**/*").collect { |p| cleanup_pathname(p) }.sort.reverse
+      Dir.glob("#{@dir}/**/*").collect { |p| cleanup_pathname(p) }.sort
     end
 
     def open(name, mode, &block)
@@ -53,7 +53,7 @@ module Abulafia
     end
 
     def full_path(name)
-      "#{@dir}/#{name}"
+      "#{@dir}/#{name.downcase}"
     end
 
     def cleanup_pathname(name)
