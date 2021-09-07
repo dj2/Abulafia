@@ -7,9 +7,10 @@ module Abulafia
       def self.handle(cfg, args)
         raise Abulafia::MissingFile if args.empty?
 
-        path = to_slug(args[0])
+        name = args.join
+        path = to_slug(name)
         cfg.repo.open(path, 'w') do |f|
-          f.puts "# #{args[0]}\n\n\n"
+          f.puts "# #{name}\n\n\n"
           f.puts "created_at { #{cfg.time.stamp} }"
         end
         cfg.editor.open(cfg.repo.full_path(path))
@@ -38,6 +39,7 @@ module Abulafia
 
         name = name.gsub(/[^a-zA-Z0-9\-_]/, '-')
                    .gsub(/-+/, '-')
+                   .downcase
         "#{name}#{ext}"
       end
 

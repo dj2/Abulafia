@@ -35,6 +35,15 @@ module Abulafia
         assert @cfg.editor.opened_files.include?('path/known_name.md')
       end
 
+      def test_it_creates_with_multi_arg_name
+        Abulafia::Command::New.handle(@cfg, ['Known name for test'])
+        assert @cfg.repo.read('known-name-for-test.md'),
+               "# Known name for test\n\n\ncreated_at{ 2021-02-13 1425 }"
+        assert @cfg.editor.opened_files.include?(
+          'path/known-name-for-test.md'
+        )
+      end
+
       def test_it_handles_missing_note_name
         err = assert_raises Abulafia::MissingFile do
           Abulafia::Command::New.handle(@cfg, [])
