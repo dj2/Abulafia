@@ -10,7 +10,7 @@ module Abulafia
         name = args.join(' ')
         path = to_slug(name)
 
-        if !cfg.repo.exist?(path)
+        unless cfg.repo.exist?(path)
           cfg.repo.open(path, 'w') do |f|
             f.puts "# #{name}\n@inbox\n\n"
             f.puts "created_at { #{cfg.time.stamp} }\n\n"
